@@ -33,7 +33,7 @@ impl std::fmt::Display for BigInt {
 impl Add<BigInt> for BigInt {
     type Output = BigInt;
 
-    fn add(self, mut rhs: BigInt) -> BigInt {
+    fn add(mut self, mut rhs: BigInt) -> BigInt {
         let mut temp: Vec<u8> = Vec::new();
         let mut carry: u8 = 0;
 
@@ -42,6 +42,11 @@ impl Add<BigInt> for BigInt {
                 let diff = self.buf.len() - rhs.buf.len();
                 for _ in 0..diff {
                     rhs.buf.insert(0, 0);
+                }
+            } else {
+                let diff =  rhs.buf.len() - self.buf.len();
+                for _ in 0..diff {
+                    self.buf.insert(0, 0);
                 }
             }
         }
@@ -68,7 +73,7 @@ impl Add<BigInt> for BigInt {
 impl Sub<BigInt> for BigInt {
     type Output = BigInt;
 
-    fn sub(self, mut rhs: BigInt) -> BigInt {
+    fn sub(mut self, mut rhs: BigInt) -> BigInt {
         let mut temp: Vec<u8> = Vec::new();
 
         if self.buf.len() != rhs.buf.len() {
@@ -76,6 +81,11 @@ impl Sub<BigInt> for BigInt {
                 let diff = self.buf.len() - rhs.buf.len();
                 for _ in 0..diff {
                     rhs.buf.insert(0, 0);
+                }
+            } else {
+                let diff =  rhs.buf.len() - self.buf.len();
+                for _ in 0..diff {
+                    self.buf.insert(0, 0);
                 }
             }
         }
